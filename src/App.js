@@ -5,8 +5,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 	return (
-		<BrowserRouter >
-			<Routes >
+		<BrowserRouter>
+			<Routes>
 				<Route path='/' element={<Calculator />} />
 				<Route path='/fuelcalculator' element={<FuelCalc />} />
 			</Routes>
