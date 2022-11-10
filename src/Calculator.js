@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import Header from './Header';
 
 function Calculator() {
 	const inputRef = useRef(null);
@@ -52,7 +51,6 @@ function Calculator() {
 
 	return (
         <>
-        <Header />
 		<div className='place-items-center h-screen bg-gradient-to-tr from-yellow-600 via-fuchsia-400 to-purple-900'>
 			<div>
 				<h1 className='pt-40 mb-10 text-4xl text-center font-bold '> Calculator</h1>

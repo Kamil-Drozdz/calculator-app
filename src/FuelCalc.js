@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from './Header';
 
 class FuelCalc extends Component {
 	constructor(props) {
@@ -57,7 +56,6 @@ class FuelCalc extends Component {
 	render() {
 		return (
 			<>
-				<Header />
 				<div className='flex text-3xl h-screen justify-center bg-gradient-to-tr from-yellow-600 via-fuchsia-400 to-purple-900'>
 					<div>
 						<h1 className=' flex-01 pt-40 mb-10 mr-60 text-4xl r font-bold '>Fuel Cost Calculator</h1>
@@ -159,7 +157,7 @@ class TotalCost extends Component {
 	render() {
 		return (
 			<div>
-				<p className='pt-10'>This would cost you:</p>
+				<p className='pt-10 mt-4'>This would cost you:</p>
 				<p>{this.props.calculateCost} zł</p>
 			</div>
 		);
@@ -222,7 +220,7 @@ class TotalFuelConsumption extends Component {
 	render() {
 		return (
 			<div>
-				<p className='pt-10'>This would cost you:</p>
+				<p className='pt-10 mt-24'>This would cost you:</p>
 				<p>{this.props.cost} Liters</p>
 			</div>
 		);
