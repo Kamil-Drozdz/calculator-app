@@ -14,9 +14,14 @@ class FuelCalc extends Component {
 		this.kilometersTraveledChange = this.kilometersTraveledChange.bind(this);
 		this.consumptionFuelChange = this.consumptionFuelChange.bind(this);
 	}
-
 	calculateCost() {
-		return ((this.state.routeLength / 100) * this.state.consumption * this.state.price).toFixed(2);
+		return (this.state.routeLength / 100) * this.state.consumption * this.state.price;
+	}
+
+	calculateTotal(sum) {
+		sum = this.calculateCost();
+
+		return (sum += Math.round(this.state.extraCost)).toFixed(2);
 	}
 
 	priceChange(e) {
@@ -63,7 +68,7 @@ class FuelCalc extends Component {
 						<FuelPrice price={this.state.price} callback={this.priceChange} />
 						<RouteLength routeLength={this.state.routeLength} callback={this.routeLengthChange} />
 						<ExtraCost extraCost={this.state.extraCost} callback={this.extraCostChange} />
-						<TotalCost calculateCost={this.calculateCost()} />
+						<TotalCost calculateTotal={this.calculateTotal()} />
 					</div>
 					<div>
 						<h1 className='flex-02 pt-40 mb-10 text-4xl font-bold '>Average fuel consumption Calculator:</h1>
@@ -158,7 +163,7 @@ class TotalCost extends Component {
 		return (
 			<div>
 				<p className='pt-10 mt-4'>This would cost you:</p>
-				<p>{this.props.calculateCost} zł</p>
+				<p>{this.props.calculateTotal} zł</p>
 			</div>
 		);
 	}
