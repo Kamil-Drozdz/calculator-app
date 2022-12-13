@@ -1,4 +1,4 @@
-import './Index.css';
+import './index.css';
 import Header from './Header';
 import FuelCalc from './FuelCalc';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
