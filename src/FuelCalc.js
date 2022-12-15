@@ -1,245 +1,108 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import AverageConsumption from './AverageConsumption';
 
-class FuelCalc extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { price: 0, routeLength: 0, consumption: 0, extraCost: 0 };
-		this.priceChange = this.priceChange.bind(this);
-		this.routeLengthChange = this.routeLengthChange.bind(this);
-		this.consumptionChange = this.consumptionChange.bind(this);
-		this.extraCostChange = this.extraCostChange.bind(this);
+const FuelCalc = () => {
+	const [currentField, setCurrentField] = useState();
+	const [state, setState] = useState({
+		price: '',
+		routeLength: '',
+		consumption: '',
+		extraCost: '',
+		total: 0,
+	});
+	const calculateCost = () => {
+		return (state.routeLength / 100) * state.consumption * state.price;
+	};
 
-		this.calculateCostMultiplyChange = this.state = { fuelCost: 0, kilometersTraveled: 0, consumptionFuel: 0 };
-		this.fuelCostChange = this.fuelCostChange.bind(this);
-		this.kilometersTraveledChange = this.kilometersTraveledChange.bind(this);
-		this.consumptionFuelChange = this.consumptionFuelChange.bind(this);
-	}
-	calculateCost() {
-		return (this.state.routeLength / 100) * this.state.consumption * this.state.price;
-	}
+	const calculateTotal = e => {
+		e.preventDefault();
+		const sum = calculateCost() + Math.round(state.extraCost);
+		setState({ ...state, total: sum });
+	};
+	console.log(state.total);
+	const priceChange = e => {
+		setState({ ...state, price: e.target.value });
+	};
 
-	calculateTotal(sum) {
-		sum = this.calculateCost();
+	const routeLengthChange = e => {
+		setState({ ...state, routeLength: e.target.value });
+	};
 
-		return (sum += Math.round(this.state.extraCost)).toFixed(2);
-	}
+	const consumptionChange = e => {
+		setState({ ...state, consumption: e.target.value });
+	};
 
-	priceChange(e) {
-		this.setState({ price: e.target.value });
-	}
+	const extraCostChange = e => {
+		setState({ ...state, extraCost: e.target.value });
+	};
 
-	routeLengthChange(e) {
-		this.setState({ routeLength: e.target.value });
-	}
+	function InputField(props) {
+		const isCurrentField = props.name === currentField;
 
-	consumptionChange(e) {
-		this.setState({ consumption: e.target.value });
-	}
-	extraCostChange(e) {
-		this.setState({ extraCost: e.target.value });
-	}
-
-	calculateConsumptionCost() {
-		return ((this.state.kilometersTraveled / 100) * this.state.consumptionFuel).toFixed(2);
-	}
-	consumptionCost() {
-		return (this.state.consumptionFuel * this.state.fuelCost).toFixed(2);
-	}
-
-	fuelCostChange(e) {
-		this.setState({ fuelCost: e.target.value });
-	}
-
-	kilometersTraveledChange(e) {
-		this.setState({ kilometersTraveled: e.target.value });
-	}
-
-	consumptionFuelChange(e) {
-		this.setState({ consumptionFuel: e.target.value });
-	}
-
-	render() {
 		return (
 			<>
-				<div className='flex text-3xl h-screen justify-center bg-gradient-to-tr from-yellow-600 via-fuchsia-400 to-purple-900'>
-					<div>
-						<h1 className=' flex-01 pt-40 mb-10 mr-60 text-4xl r font-bold '>Fuel Cost Calculator</h1>
-						<FuelConsumption consumption={this.state.consumption} callback={this.consumptionChange} />
-						<FuelPrice price={this.state.price} callback={this.priceChange} />
-						<RouteLength routeLength={this.state.routeLength} callback={this.routeLengthChange} />
-						<ExtraCost extraCost={this.state.extraCost} callback={this.extraCostChange} />
-						<TotalCost calculateTotal={this.calculateTotal()} />
-					</div>
-					<div>
-						<h1 className='flex-02 pt-40 mb-10 text-4xl font-bold '>Average fuel consumption Calculator:</h1>
-						<FuelCost fuelCost={this.state.fuelCost} callback={this.fuelCostChange} />
-						<KilometersTraveled
-							kilometersTraveled={this.state.kilometersTraveled}
-							callback={this.kilometersTraveledChange}
-						/>
-						<ConsumptionFuel consumptionFuel={this.state.consumptionFuel} callback={this.consumptionFuelChange} />
-						<TotalFuelConsumption cost={this.calculateConsumptionCost()} />
-						<ConsumptionCost cost={this.consumptionCost()} />
-					</div>
-				</div>
+				<label className=' mr-5'>{props.nameLabel}</label>
+				<input
+					autoFocus={isCurrentField}
+					onFocus={() => setCurrentField(props.name)}
+					name={props.name}
+					value={props.value}
+					onChange={props.onChange}
+					placeholder={props.placeholder}
+					type='number'
+					className='flex mr-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+				/>
 			</>
 		);
 	}
-}
-
-class FuelPrice extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className=' mr-5'>Fuel price:</label>
-				<input
-					className='flex mr-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='per liter'
-					onChange={this.props.callback}></input>
+	return (
+		<div>
+			<div className='flex flex-col md:flex-row items-center text-3xl min-h-screen p-4 w-screen justify-center bg-gradient-to-tr from-yellow-600 via-fuchsia-400 to-purple-900'>
+				<div>
+					<h1 className=' flex-01 pt-40 mb-10 mr-60 text-4xl r font-bold '>Fuel Cost Calculator</h1>
+					<form name='form' onSubmit={calculateTotal}>
+						<InputField
+							placeholder='per liter'
+							value={state.price}
+							name='price'
+							nameLabel='Fuel Price:'
+							onChange={priceChange}
+						/>
+						<InputField
+							placeholder='in km'
+							value={state.routeLength}
+							name='routeLength'
+							nameLabel='Route length:'
+							onChange={routeLengthChange}
+						/>
+						<InputField
+							placeholder='liter / 100km'
+							value={state.consumption}
+							name='consumption'
+							nameLabel='Fuel consumption:'
+							onChange={consumptionChange}
+						/>
+						<InputField
+							placeholder='how much you add?'
+							value={state.extraCost}
+							name='extraCost'
+							nameLabel='Extra Cost:'
+							onChange={extraCostChange}
+						/>
+						<button
+							disabled={state.price === '' || state.routeLength === '' || state.consumption === ''}
+							type='submit'
+							className='p-3 mt-6 bg-black rounded-lg text-white disabled:opacity-40'
+							onClick={calculateTotal}>
+							Calculate
+						</button>
+						{state.total !== 0 && <p className='mt-4'>Cost of the trip {state.total} zł</p>}
+					</form>
+				</div>
+				<AverageConsumption />
 			</div>
-		);
-	}
-}
-
-class RouteLength extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className='mr-5'>Route length:</label>
-				<input
-					className='flex ml-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='in km'
-					onChange={this.props.callback}></input>
-			</div>
-		);
-	}
-}
-
-class FuelConsumption extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className='mr-5'>Fuel consumption:</label>
-				<input
-					className='flex mr-28 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='liter / 100km'
-					onChange={this.props.callback}></input>
-			</div>
-		);
-	}
-}
-class ExtraCost extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className='mr-5'>Extra cost:</label>
-				<input
-					className='flex mr-28 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='how much you add?'
-					onChange={this.props.callback}></input>
-			</div>
-		);
-	}
-}
-
-class TotalCost extends Component {
-	render() {
-		return (
-			<div>
-				<p className='pt-10 mt-4'>This would cost you:</p>
-				<p>{this.props.calculateTotal} zł</p>
-			</div>
-		);
-	}
-}
-// Average fuel consumption
-
-class FuelCost extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className='mr-5'>Fuel cost :</label>
-				<input
-					className='flex ml-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='in km'
-					onChange={this.props.callback}></input>
-			</div>
-		);
-	}
-}
-class KilometersTraveled extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className='mr-5'>Route length:</label>
-				<input
-					className='flex ml-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='in km'
-					onChange={this.props.callback}></input>
-			</div>
-		);
-	}
-}
-class ConsumptionFuel extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<label className='mr-5'>Consumption Fuel:</label>
-				<input
-					className='flex ml-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-					type='number'
-					placeholder='in km'
-					onChange={this.props.callback}></input>
-			</div>
-		);
-	}
-}
-class TotalFuelConsumption extends Component {
-	render() {
-		return (
-			<div>
-				<p className='pt-10 mt-24'>This would cost you:</p>
-				<p>{this.props.cost} Liters</p>
-			</div>
-		);
-	}
-}
-class ConsumptionCost extends Component {
-	render() {
-		return (
-			<div>
-				<p></p>
-				<p>{this.props.cost} zł</p>
-			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 export default FuelCalc;
