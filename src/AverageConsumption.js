@@ -48,34 +48,58 @@ function AverageConsumption() {
 	};
 	return (
 		<>
-			<div>
+			<div className='bg-white bg-opacity-90  p-4 rounded-lg'>
 				<div>
-					<h1 className=' flex-01 pt-40 mb-10 mr-60 text-4xl r font-bold '>Average consumption </h1>
+					<h1 className=' flex-01  mb-10  text-3xl r font-bold '>Average consumption </h1>
 					<form name='form'>
-						<label> Fuel Cost:</label>
-						<input
-							type='number'
-							placeholder='per liter'
-							value={state.fuelCost}
-							onChange={fuelCostChange}
-							className='flex mr-2  text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-						/>
-						<label>Kilometers traveled:</label>
-						<input
-							placeholder='in km'
-							value={state.kilometersTraveled}
-							name='kilometersTraveled'
-							nameLabel='Kilometers traveled:'
-							onChange={kilometersTraveledChange}
-							className='flex mr-2  text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-						/>
-						<label>Fuel consumption:</label>
-						<input
-							placeholder='liter / 100km'
-							value={state.consumptionFuel}
-							onChange={consumptionFuelChange}
-							className='flex mr-2  text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-						/>
+						<div class='relative z-0 mb-6 w-full group'>
+							<input
+								type='number'
+								class='block py-2.5 px-0 w-48 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-gray-600 peer'
+								placeholder=' '
+								value={state.fuelCost}
+								onChange={fuelCostChange}
+								required
+							/>
+							<div class='absolute left-44 top-2 mr-2 text-sm'>zł</div>
+							<label
+								for='floating_text_price'
+								class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-900 peer-focus:dark:text-blue-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
+								Fuel Cost:
+							</label>
+						</div>
+						<div class='relative z-0 mb-6 w-full group'>
+							<input
+								type='number'
+								class='block py-2.5 px-0 w-48 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-gray-600 peer'
+								placeholder=' '
+								value={state.kilometersTraveled}
+								onChange={kilometersTraveledChange}
+								required
+							/>
+							<div class='absolute left-44 top-2 mr-2 text-sm'>KM</div>
+							<label
+								for='floating_text_price'
+								class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-900 peer-focus:dark:text-blue-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
+								Kilometers traveled:
+							</label>
+						</div>
+						<div class='relative z-0 mb-6 w-full group'>
+							<input
+								type='number'
+								class='block py-2.5 px-0 w-48 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-gray-600 peer'
+								placeholder=' '
+								value={state.consumptionFuel}
+								onChange={consumptionFuelChange}
+								required
+							/>
+							<div class='absolute left-44 top-2 mr-2 text-sm'>l/100KM</div>
+							<label
+								for='floating_text_price'
+								class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-900 peer-focus:dark:text-blue-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
+								Fuel consumption:
+							</label>
+						</div>
 						<button
 							disabled={state.fuelCost === '' || state.kilometersTraveled === '' || state.consumptionFuel === ''}
 							type='submit'

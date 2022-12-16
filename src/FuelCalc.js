@@ -41,58 +41,60 @@ const FuelCalc = () => {
 
 		return (
 			<>
-				<label className=' mr-5'>{props.nameLabel}</label>
-				<input
-					autoFocus={isCurrentField}
-					onFocus={() => setCurrentField(props.name)}
-					name={props.name}
-					value={props.value}
-					onChange={props.onChange}
-					placeholder={props.placeholder}
-					type='number'
-					className='flex mr-2 pl-10 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-				/>
+				<div class='relative z-0 mb-6 w-full group'>
+					<input
+						type='number'
+						class='block py-2.5 px-0 w-48 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-700 focus:outline-none focus:ring-0 focus:border-gray-600 peer'
+						placeholder=' '
+						autoFocus={isCurrentField}
+						onFocus={() => setCurrentField(props.name)}
+						name={props.name}
+						value={props.value}
+						onChange={props.onChange}
+						required
+					/>
+					<div class='absolute left-44 top-2 mr-2 text-sm'>{props.unit}</div>
+					<label
+						for='floating_text_price'
+						class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-900 peer-focus:dark:text-blue-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
+						{props.nameLabel}
+					</label>
+				</div>
 			</>
 		);
 	}
 	return (
 		<div>
-			<div className='flex flex-col md:flex-row items-center text-3xl min-h-screen p-4 w-screen justify-center bg-gradient-to-tr from-yellow-600 via-fuchsia-400 to-purple-900'>
-				<div>
-					<h1 className=' flex-01 pt-40 mb-10 mr-60 text-4xl r font-bold '>Fuel Cost Calculator</h1>
+			<div className='flex flex-col md:flex-row items-center text-2xl h-[100vh] p-4 w-auto justify-center bg-calculator-fuel'>
+				<div className='bg-white bg-opacity-90 mb-20 mt-20 mr-0 md:mr-60 p-4 rounded-lg'>
+					<h1 className=' flex-01  mb-10  text-3xl r font-bold '>Fuel Cost Calculator</h1>
 					<form name='form' onSubmit={calculateTotal}>
+						<InputField value={state.price} name='price' nameLabel='Fuel Price:' onChange={priceChange} unit='Zł' />
 						<InputField
-							placeholder='per liter'
-							value={state.price}
-							name='price'
-							nameLabel='Fuel Price:'
-							onChange={priceChange}
-						/>
-						<InputField
-							placeholder='in km'
 							value={state.routeLength}
 							name='routeLength'
 							nameLabel='Route length:'
 							onChange={routeLengthChange}
+							unit='KM'
 						/>
 						<InputField
-							placeholder='liter / 100km'
 							value={state.consumption}
 							name='consumption'
 							nameLabel='Fuel consumption:'
 							onChange={consumptionChange}
+							unit='l/100km'
 						/>
 						<InputField
-							placeholder='how much you add?'
 							value={state.extraCost}
 							name='extraCost'
 							nameLabel='Extra Cost:'
 							onChange={extraCostChange}
+							unit='Zł (optional)'
 						/>
 						<button
 							disabled={state.price === '' || state.routeLength === '' || state.consumption === ''}
 							type='submit'
-							className='p-3 mt-6 bg-black rounded-lg text-white disabled:opacity-40'
+							className='p-2 mt-6 bg-black rounded-lg text-white disabled:opacity-40'
 							onClick={calculateTotal}>
 							Calculate
 						</button>

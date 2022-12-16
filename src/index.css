@@ -1,10 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
+@layer {
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	.bg-calculator {
+		background-image: url('assets/calculator-background.png');
+	}
+	.bg-calculator-fuel {
+		background-image: url('assets/background-calculator-fuel.png');
+	}
+	.active {
+		@apply bg-active;
+	}
+}
