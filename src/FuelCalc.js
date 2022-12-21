@@ -53,7 +53,7 @@ const FuelCalc = () => {
 						onChange={props.onChange}
 						required
 					/>
-					<div class='absolute left-44 top-2 mr-2 text-sm'>{props.unit}</div>
+					<div class='absolute left-44 top-2 mr-2 text-sm whitespace-nowrap'>{props.unit}</div>
 					<label
 						for='floating_text_price'
 						class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-gray-900 peer-focus:dark:text-blue-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
@@ -65,11 +65,19 @@ const FuelCalc = () => {
 	}
 	return (
 		<div>
-			<div className='flex flex-col md:flex-row items-center text-2xl h-[100vh] p-4 w-auto justify-center bg-calculator-fuel'>
+			<div className='flex flex-col md:flex-row items-center text-2xl min-h-screen p-4 w-auto justify-center bg-calculator-fuel'>
 				<div className='bg-white bg-opacity-90 mb-20 mt-20 mr-0 md:mr-60 p-4 rounded-lg'>
-					<h1 className=' flex-01  mb-10  text-3xl r font-bold '>Fuel Cost Calculator</h1>
+					<h1 className=' flex-01  mb-10 sm:pt-20 text-sm mr-28 font-bold sm:text-base md:text-lg lg:text-xl  xl:text-2xl 2xl:text-3xl'>
+						Fuel Cost Calculator
+					</h1>
 					<form name='form' onSubmit={calculateTotal}>
-						<InputField value={state.price} name='price' nameLabel='Fuel Price:' onChange={priceChange} unit='Zł' />
+						<InputField
+							value={state.price}
+							name='price'
+							nameLabel='Fuel Price:'
+							onChange={priceChange}
+							unit='Zł/per liter'
+						/>
 						<InputField
 							value={state.routeLength}
 							name='routeLength'

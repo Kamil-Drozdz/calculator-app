@@ -51,17 +51,19 @@ function Calculator() {
 
 	return (
 		<>
-			<div className='place-items-center w-full flex flex-col content-center h-[94vh] bg-calculator'>
+			<div className='place-items-center w-full flex flex-col content-center min-h-screen  bg-calculator'>
 				<div>
 					<h1 className='pt-40 mb-10 text-4xl text-center font-bold '> Calculator</h1>
 				</div>
-				<form class='grid grid-cols-1  gap-4 justify-items-center bg-black bg-opacity-80  p-4 rounded-lg'>
-					<p class='text-center min-w-12 p-2 bg-gray-400 rounded-lg text-sm font-bold mb-10' ref={resultRef}>
+				<form class='grid grid-cols-1 gap-4 justify-items-center bg-black bg-opacity-80 p-4 rounded-lg'>
+					<p
+						class='text-center min-w-12 p-2 bg-gray-400 rounded-lg text-sm font-bold mb-10 sm:min-w-12 md:min-w-12 lg:min-w-12 xl:min-w-12 2xl:min-w-12'
+						ref={resultRef}>
 						{result}
 					</p>
 
 					<input
-						class='text-center mr-5 flex-row bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+						class='text-center mr-5 flex-row bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue focus:border-blue-500 w-auto p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						pattern='[0-9]'
 						ref={inputRef}
 						type='number'
